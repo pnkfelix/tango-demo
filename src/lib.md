@@ -83,4 +83,20 @@ test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured
 
 Here is some more text I added to the demo library.
 
+Here is one Rust submodule:
+
+```rust
+pub mod submod_one {
+	pub fn twice<F, X>(f: F, x: X) -> X where F: Fn(X) -> X {
+		f(f(x))
+	}
+}
+```
+
+Here is another submodule:
+
+```rust
+pub mod submod_two;
+```
+
 Here is another paragraph.
