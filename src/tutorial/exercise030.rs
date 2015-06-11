@@ -52,5 +52,16 @@ fn sum(v: &Vec<i32>) -> i32 {
 //
 // let the_sum = sum(&vec1);
 //
-// If we cannot, then what went wrong?
-// If we can, then why does this work while exercise 1 goes wrong?
+// Why does this work? How does this differ from exercise 1?
+
+
+// EXTRA EXERCISES
+
+// Exercise 3; Write a function that takes a `&mut Vec<i32>` and
+// imperatively replaces its contents with its prefix-sum:
+//
+// `[v1, v2, v3, ...]` is replaced with `[v1, v1+v2, v1+v2+v3, ...]`.
+//
+// Examples:
+// `[1, 0, 1, 0]` is replaced with `[1, 1, 2, 2]`
+// `[1, 2, 3, 4]` is replaced with `[1, 3, 6, 10]`

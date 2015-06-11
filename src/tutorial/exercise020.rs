@@ -90,13 +90,20 @@ fn sum(v: &Vec<i32>) -> i32 {                                              /*
 //
 // let also_a_sum = sum(borrowed);
 //
-// But this time you should try to address the compiler's complaints
-// in some manner.
+// But this time, address the compiler's complaints in some manner
+// by making further changes elsewhere.
 
 
 // EXTRA EXERCISES
 
-// Exercise 3: It is not idiomatic in Rust to define a function that
+// Exercise 3: Write a function, `fn palindrome`, that takes a
+// borrowed `&Vec<i32>` and returns a boolean. It returns true if and
+// only if the series of values in-order is equal to the reversed
+// series. E.g. the series `[2, 17, 4, 17, 2]` is a palindrome, while
+// `[2, 17, 17]` is not.
+
+
+// Exercise 4: It is not idiomatic in Rust to define a function that
 // takes an immutably borrowed `Vec<T>` argument. Instead, one uses a
 // borrowed slice `&[T]`, which is more general.
 //

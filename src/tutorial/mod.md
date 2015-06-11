@@ -13,10 +13,27 @@ extern crate libc;
 use std::mem;
 use self::libc::{c_void, c_int};
 
+// The basics of Rust comments
 mod comments;
+// Themes: Getting Started, Ownership and Move Semantics
 mod exercise010;
+// Theme: Borrowing
 mod exercise020;
+// Theme: Ownership and Exclusive Access, Mutable Borrowing
 mod exercise030;
+// Theme: Sequence Types; Vector/Array/Slice, String/str/[u8]/[char]
+mod exercise040;
+// Theme: Borrowing revisited: Generic Lifetime Bindings
+mod exercise050 { }
+
+// At this point my hope is that everyone in the room has run the Rust
+// installer and thus we can shift from doing exercises via the
+// playpen to each doing exercises on their own laptop, and thus we
+// can shift to discussing tools like `cargo` directly.
+
+// Theme: Getting started with Cargo
+mod exercise050 { }
+
 
 #[test] fn ex010() { exercise010::main(); }
 #[test] fn ex020() { exercise020::main(); }
