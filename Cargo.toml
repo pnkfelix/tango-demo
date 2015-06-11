@@ -26,3 +26,9 @@ git = "https://github.com/pnkfelix/tango"
 
 [lib]
 name = "lib"
+
+[[bin]]
+name = "demo1"
+
+[[bin]]
+name = "demo2"

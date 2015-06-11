@@ -1,3 +1,10 @@
+(this feature declaration is temporary; once I have network
+ I need to switch it to the cargo `libc` crate)
+
+```rust
+#![feature(libc)]
+```
+
 This is a demonstration library.
 
 This is a unit-test in Rust:
@@ -100,3 +107,7 @@ pub mod submod_two;
 ```
 
 Here is another paragraph.
+
+```rust
+pub mod tutorial;
+```
