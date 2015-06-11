@@ -13,6 +13,15 @@ extern crate libc;
 use std::mem;
 use self::libc::{c_void, c_int};
 
+mod comments;
+mod exercise010;
+mod exercise020;
+mod exercise030;
+
+#[test] fn ex010() { exercise010::main(); }
+#[test] fn ex020() { exercise020::main(); }
+#[test] fn ex030() { exercise030::main(); }
+
 extern {
     fn qsort(base: *mut c_void,
              nmemb: libc::size_t,

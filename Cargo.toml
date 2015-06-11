@@ -34,3 +34,15 @@ path = "src/demo1.rs"
 [[bin]]
 name = "demo2"
 path = "src/demo2.rs"
+
+[[bin]]
+name = "exercise010"
+path = "src/tutorial/exercise010.rs"
+
+[[bin]]
+name = "exercise020"
+path = "src/tutorial/exercise020.rs"
+
+[[bin]]
+name = "exercise030"
+path = "src/tutorial/exercise030.rs"
