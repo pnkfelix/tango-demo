@@ -29,6 +29,8 @@ name = "lib"
 
 [[bin]]
 name = "demo1"
+path = "src/demo1.rs"
 
 [[bin]]
 name = "demo2"
+path = "src/demo2.rs"
