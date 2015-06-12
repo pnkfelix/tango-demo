@@ -69,7 +69,17 @@ fn sum(v: &Vec<i32>) -> i32 {                                              /*
 ~~~~~~~                                                                     */
 #[test]
 fn test_sum() {
-    assert_eq!(6, sum(&vec![1, 2, 3]));
+    let s = sum(&vec![1, 2, 3]);
+
+    // assert macro for dynamically-checked conditions
+    assert!(6 == s, "[1,2,3] should sum to 6, not {}", s);                 /*
+            ~~~~~~  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~                    *
+              |                     |                                       *
+             test         (optional) println-style                          *
+           condition        template and inputs                             */
+
+    // variant assert_eq macro; always takes two inputs (they will be
+    // printed, via "{:?}", in error message if they are not equal)
     assert_eq!(0, sum(&vec![-10, 10]));
 }
 
