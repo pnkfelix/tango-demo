@@ -43,9 +43,9 @@ fn demo_qsort() {
         qsort(array_a.as_mut_ptr() as *mut c_void, len as libc::size_t, mem::size_of::<u8>() as libc::size_t, u8_cmp);
         println!("post(a): {:?}", array_a);
 
-        // println!(" pre(b): {:?}", array_b);
-        // let len = array_b.len();
-        // qsort(array_b.as_mut_ptr() as *mut c_void, len as libc::size_t, mem::size_of::<u8>() as libc::size_t, u8_cmp);
-        // println!("post(b): {:?}", array_b);
+        println!(" pre(b): {:?}", array_b);
+        let len = array_b.len();
+        qsort(array_b.as_mut_ptr() as *mut c_void, len as libc::size_t, mem::size_of::<u8>() as libc::size_t, u8_cmp);
+        println!("post(b): {:?}", array_b);
     }
 }
