@@ -19,6 +19,8 @@ build = "tango-build.rs"
 [build-dependencies.tango]
 git = "https://github.com/pnkfelix/tango"
 
+[dependencies]
+libc = "*"
 
 # Since the lib may be a tango file stored in `src/lib.md`, we need to
 # explicitly specify that this is a library project with a `[lib]`
@@ -26,14 +28,6 @@ git = "https://github.com/pnkfelix/tango"
 
 [lib]
 name = "lib"
-
-[[bin]]
-name = "demo1"
-path = "src/demo1.rs"
-
-[[bin]]
-name = "demo2"
-path = "src/demo2.rs"
 
 [[bin]]
 name = "exercise010"
