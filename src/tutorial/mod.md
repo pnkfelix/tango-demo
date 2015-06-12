@@ -8,13 +8,6 @@ Hello world
 Quicksort
 
 ```rust
-extern crate libc;
-
-#[cfg(test)]
-use std::mem;
-#[cfg(test)]
-use self::libc::{c_void, c_int};
-
 // The basics of Rust comments
 mod comments;
 
@@ -44,4 +37,5 @@ mod exercise_ffi;
 #[test] fn ex010() { section010::main(); }
 #[test] fn ex020() { section020::main(); }
 #[test] fn ex030() { section030::main(); }
+#[test] fn ex040() { section040::main(); }
 ```
