@@ -16,15 +16,15 @@ use self::libc::{c_void, c_int};
 // The basics of Rust comments
 mod comments;
 // Themes: Getting Started, Ownership and Move Semantics
-mod exercise010;
+mod section010;
 // Theme: Borrowing
-mod exercise020;
+mod section020;
 // Theme: Ownership and Exclusive Access, Mutable Borrowing
-mod exercise030;
+mod section030;
 // Theme: Sequence Types; Vector/Array/Slice, String/str/[u8]/[char]
-mod exercise040;
+mod section040;
 // Theme: Borrowing revisited: Generic Lifetime Bindings
-mod exercise050 { }
+mod section050 { }
 
 // At this point my hope is that everyone in the room has run the Rust
 // installer and thus we can shift from doing exercises via the
@@ -35,9 +35,9 @@ mod exercise050 { }
 mod exercise060 { }
 
 
-#[test] fn ex010() { exercise010::main(); }
-#[test] fn ex020() { exercise020::main(); }
-#[test] fn ex030() { exercise030::main(); }
+#[test] fn ex010() { section010::main(); }
+#[test] fn ex020() { section020::main(); }
+#[test] fn ex030() { section030::main(); }
 
 extern {
     fn qsort(base: *mut c_void,
