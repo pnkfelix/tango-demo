@@ -4,10 +4,10 @@
 
 // The `main` function is traditional program entry point.
 pub fn main() {
-    println!("Running exercise010");                                       /*
-    ~~~~~~~~  ~~~~~~~~~~~~~~~~~~~                                           *
-       |              |                                                     *
-       |      Announce the file we are running                              *
+    println!("Running `exercise010` aka `section010::main`");              /*
+    ~~~~~~~~  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~                  *
+       |                          |                                         *
+       |              Announce what we are running                          *
        |                                                                    *
     Macro to print line to console.                                         */
 
