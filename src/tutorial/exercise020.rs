@@ -60,6 +60,24 @@ fn sum(v: &Vec<i32>) -> i32 {                                              /*
     sum
 }
 
+
+                                                                           /*
+ A `#[test]` attribute marks a unit test.                                   *
+ `rustc` will compile tests into one binary via `rustc --test`. `           *
+ `cargo` will compile and run them via `cargo test`.                        *
+   |                                                                        *
+~~~~~~~                                                                     */
+#[test]
+fn test_sum() {
+    assert_eq!(6, sum(&vec![1, 2, 3]));
+    assert_eq!(0, sum(&vec![-10, 10]));
+}
+
+#[test]
+fn test_sum_empty() {
+    assert_eq!(0, sum(&vec![]));
+}
+
 // CORE EXERCISES
 
 // Exercise 1: The distinction between a statement versus a true
@@ -94,16 +112,32 @@ fn sum(v: &Vec<i32>) -> i32 {                                              /*
 // by making further changes elsewhere.
 
 
+// REVIEW EXERCISES
+
+// Exercise 3: Write a function, `fn choose_vec`, that takes two input
+// `Vec<i32>` parameters (as moved arguments), and returns one of
+// them, i.e. it has signature:
+//
+// ```rust
+// fn choose_vec(v1: Vec<i32>, v2: Vec<i32>) -> Vec<i32> { ... }
+// ```
+//
+// The function should choose whichever vector that has a larger
+// element at index 0.
+//
+// Include some unit tests for your `choose_vec`.
+
+
 // EXTRA EXERCISES
 
-// Exercise 3: Write a function, `fn palindrome`, that takes a
+// Exercise 4: Write a function, `fn palindrome`, that takes a
 // borrowed `&Vec<i32>` and returns a boolean. It returns true if and
 // only if the series of values in-order is equal to the reversed
 // series. E.g. the series `[2, 17, 4, 17, 2]` is a palindrome, while
 // `[2, 17, 17]` is not.
 
 
-// Exercise 4: It is not idiomatic in Rust to define a function that
+// Exercise 5: It is not idiomatic in Rust to define a function that
 // takes an immutably borrowed `Vec<T>` argument. Instead, one uses a
 // borrowed slice `&[T]`, which is more general.
 //
