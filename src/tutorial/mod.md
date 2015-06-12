@@ -32,7 +32,7 @@ mod exercise050 { }
 // can shift to discussing tools like `cargo` directly.
 
 // Theme: Getting started with Cargo
-mod exercise050 { }
+mod exercise060 { }
 
 
 #[test] fn ex010() { exercise010::main(); }
