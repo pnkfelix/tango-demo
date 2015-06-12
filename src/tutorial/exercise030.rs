@@ -39,7 +39,7 @@ fn sum(v: &Vec<i32>) -> i32 {
 
 // CORE EXERCISES
 
-// Exercise 1: Continuing the theme from the previous example: try
+// Exercise 1: Continuing the theme from a previous section: try
 // lifting the `let borrowed = &vec1;` out of its expression block, so
 // that the `let borrowed` binding is on the same level as the other
 // statements in `fn main`.
