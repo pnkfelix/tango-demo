@@ -58,7 +58,8 @@ pub fn main() {
 } // <-- Here, we hit the end of the scope for both `vec0` and `vec1`.
 // The destructor for `Vec` will free any storage allocated to them.
 
-// The `fill_vec` subroutine.
+// The `fill_vec` subroutine. Puts [22, 44, 66] into input vector,
+// then returns it.
 fn fill_vec(vec: Vec<i32>) -> Vec<i32> {                                   /*
 ~~          ~~~~~~~~~~~~~     ~~~~~~~~                                      *
 |                 |              |                                          *
@@ -89,11 +90,12 @@ Keyword     Arguments, and       |                                          *
 
 }
 
-
 // CORE EXERCISES
 
 // Exercise 1: Remove the `mut` from the binding of `vec1` on the line
 // marked (*). Why does the code stop compiling?
+//
+// (Put the `mut` back afterward.)
 
 
 // Exercise 2: Change the first `println!` call so that it reports the
