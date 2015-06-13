@@ -1,3 +1,5 @@
+// gist: https://gist.github.com/pnkfelix/9d70a08f43597a60b60e
+
 // Theme: Borrowing
 
 pub fn main() {
