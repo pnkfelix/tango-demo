@@ -1,3 +1,5 @@
+// gist: https://gist.github.com/pnkfelix/e0916c0a8abda3331293
+
 // Theme: for-loops and iterators; `String` and `&str`!
 
 // (This section uses unit tests alone for its illustrations, but you
