@@ -47,16 +47,21 @@ pub fn main() {
     println!("{} has length {} content `{:?}`", "vec1", vec1.len(), vec1); /*
     ~~~~~~~~  ~~            ~~          ~~~~    ~~~~~~~~~~~~~~~~~~~~~~~~    *
         |      |             |            |            |                    *
-  Same macro   |     but now template     |            |                    *
-               +----- with placeholders --+      and arguments that         * 
+  Same macro   |      but now template    |            |                    *
+               +----- with placeholders --+      and arguments that         *
                                                  fill them in               */
 
-    vec1.push(88);
+    vec1.push(88);                                                         /*
+    ~~~~~~~~~~~~                                                            *
+         |                                                                  *
+    method invocation; mutates `vec`                                        *
+    by pushing arg onto its end.                                            */
 
     println!("{} has length {} content `{:?}`", "vec1", vec1.len(), vec1);
 
 } // <-- Here, we hit the end of the scope for both `vec0` and `vec1`.
 // The destructor for `Vec` will free any storage allocated to them.
+
 
 // The `fill_vec` subroutine. Puts [22, 44, 66] into input vector,
 // then returns it.
@@ -106,7 +111,7 @@ Keyword     Arguments, and       |                                          *
 
 // EXTRA EXERCISES
 
-// Exercise 3: On the line marked (**), the whole line (that is, the
+// Exercise 4: On the line marked (**), the whole line (that is, the
 // rebinding of `vec` to `mut vec`) can be removed if we just add the
 // keyword `mut` to another spot in `fn fill_vec`. Figure out how to
 // remove the line marked (**). (Hint: in general, the use of `mut` is
@@ -114,7 +119,7 @@ Keyword     Arguments, and       |                                          *
 // *bindings*)
 
 
-// Exercise 4: Refactor the code so that instead of creating the
+// Exercise 5: Refactor the code so that instead of creating the
 // vector in `fn main`, we instead create it within `fn fill_vec`, and
 // transfer the freshly created from `fill_vec` to its caller. Note
 // this will require revising the function signature for `fill_vec`.

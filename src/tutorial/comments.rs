@@ -9,7 +9,7 @@
 // Like C++, we offer both.
 
 /*
- * (Though note that Rust's /* */ can /*/*nest*/*/.)
+ * (Though note that Rust's /* */ can /*/* nest */*/.)
  */
 
 // Note that this means every `/*` needs a matching `*/`

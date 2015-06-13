@@ -52,7 +52,12 @@ fn sum(v: &Vec<i32>) -> i32 {                                              /*
     let c = v.len();
     let mut sum = 0;
 
-    while i < c {
+    while i < c {                                                          /*
+          ~~~~~                                                             *
+            |                                                               *
+      test expression                                                       *
+        (no parens)                                                         */
+
         sum += v[i]; // <-- index operator `v[i]` for i'th element of `v`
         i += 1;
     }
@@ -65,6 +70,8 @@ fn sum(v: &Vec<i32>) -> i32 {                                              /*
  A `#[test]` attribute marks a unit test.                                   *
  `rustc` will compile tests into one binary via `rustc --test`. `           *
  `cargo` will compile and run them via `cargo test`.                        *
+ The playpen will run them too, *if* there is no `fn main` in its buffer.   *
+ (otherwise it will just compile the input and run its `main` function.)    *
    |                                                                        *
 ~~~~~~~                                                                     */
 #[test]
@@ -87,6 +94,7 @@ fn test_sum() {
 fn test_sum_empty() {
     assert_eq!(0, sum(&vec![]));
 }
+
 
 // CORE EXERCISES
 
@@ -148,7 +156,7 @@ fn test_sum_empty() {
 
 
 // Exercise 5: It is not idiomatic in Rust to define a function that
-// takes an immutably borrowed `Vec<T>` argument. Instead, one uses a
+// takes an immutably-borrowed `&Vec<T>` argument. Instead, one uses a
 // borrowed slice `&[T]`, which is more general.
 //
 // We will be seeing more with slices in the future; for now, just try
