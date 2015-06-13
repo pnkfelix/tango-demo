@@ -1,3 +1,5 @@
+// gist: https://gist.github.com/pnkfelix/9fff988da6d7b838906d
+
 // Theme: Ownership and Exclusive Access, Mutable Borrowing.
 // Theme: Integer Types
 
