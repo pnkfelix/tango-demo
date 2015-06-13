@@ -1,3 +1,5 @@
+// gist: https://gist.github.com/pnkfelix/aca0d887a7e877b7aff4
+
 // Theme: Vector versus Array versus Slice
 
 // (This section uses unit tests alone for its illustrations, but you
