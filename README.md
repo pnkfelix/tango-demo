@@ -94,3 +94,18 @@ needs editing at that moment.
 As long as you re-run `cargo build` before switching between which
 kind of file you are editting for a given (`rs`,`md`) pair, everything
 should work out.
+
+ * Even if you forget to re-run `cargo build` before editting both
+   a `.rs` file and its corresponding `.md`, `tango` tries hard to
+   avoid blindly overwriting files that the developer has touched.
+ 
+ * In particular, if you make edits to both a `.rs` file and its
+   corresponding `.md` file and then run `tango`, the `tango` will
+   detect that both timestamps have been updated since the last
+   time it was run, and refuse to overwrite either of the files.
+ 
+ * (I hope in the future to extend `tango` so that it will actually
+    report some sort of `diff` between each of the generated products,
+    so that the developer can then attempt to manually port the
+    necessary change into whichever single target file makes sense and
+    remove its partner from the filesystem.)
