@@ -15,6 +15,7 @@ build = "tango-build.rs"
 
 [build-dependencies]
 pandoc = "0.4.1"
+rustc-serialize = "0.3.19"
 
 # The preprocessor is the `tango` crate, so we need to add that
 # to the build-dependencies.
@@ -28,3 +29,6 @@ git = "https://github.com/pnkfelix/tango"
 
 [lib]
 name = "lib"
+
+[[bin]]
+name = "main"

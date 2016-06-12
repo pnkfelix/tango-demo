@@ -104,5 +104,5 @@ Here is another paragraph.
 Here is a submodule that contains source to a (slideshow) presentation.
 
 ```rust
-mod slides;
+pub mod slides;
 ```
