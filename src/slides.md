@@ -1,58 +1,13 @@
-# Why Learn To `tango`? {.center}
+# `tango`: dancing around literate programming {.center}
 
 ## Goal of `tango`: Workflow { .center }
 
-## { data-transition="fade-out" }
-
-### Presenter writes:
-
-    ```rust
-    pub fn main() { println!("Hello from `tango`"); }
-    ```
-
-    * What is Literate Programming (LP)?
-
-    * What is `tango`'s approach to LP?
-
-### Audience sees:
-
-```rust
-pub fn main() { println!("Hello from `tango`"); }
-```
-
-* What is Literate Programming (LP)?
-
-* What is `tango`'s approach to LP?
-
 ## { data-transition="fade" }
 
 ### Presenter writes:
 
     ```rust
-    pub fn main() { println!("Hello from `tango`"); }
-    ```
-
-    * What is Literate Programming (LP)?
-
-    * What is `tango`'s approach to LP?
-
-
-### IDE sees:
-
-``` {.rust}
-pub fn main() { println!("Hello from `tango`"); }
-
-//@ * What is Literate Programming (LP)?
-//@
-//@ * What is `tango`'s approach to LP?
-```
-
-## { data-transition="fade" }
-
-### Presenter writes:
-
-    ```rust
-    pub fn main() { println!("Hello from `tango`"); }
+    pub fn main() { println!("Hello post `tango`"); }
     ```
 
     * What is Literate Programming (LP)?
@@ -66,18 +21,60 @@ pub fn main() { println!("Hello from `tango`"); }
 % cargo run
    Compiling tango-demo v0.1.0 (file:///Users/fklock/Dev/Rust/tango-demo)
      Running `target/debug/main`
-Hello from `tango`
+Hello post `tango`
 ```
 
-##
+. . .
 
-# Outline
+(`cargo` build script pushes `tango` onto dance floor.)
+
+## { data-transition="fade" }
+
+### Presenter writes:
+
+    ```rust
+    pub fn main() { println!("Hello post `tango`"); }
+    ```
+
+    * What is Literate Programming (LP)?
+
+    * What is `tango`'s approach to LP?
+
+
+### IDE (i.e. Rust source) sees:
+
+``` {.rust}
+pub fn main() { println!("Hello post `tango`"); }
+
+//@ * What is Literate Programming (LP)?
+//@
+//@ * What is `tango`'s approach to LP?
+```
+
+## { data-transition="fade" }
+
+### Presenter writes:
+
+    ```rust
+    pub fn main() { println!("Hello post `tango`"); }
+    ```
+
+    * What is Literate Programming (LP)?
+
+    * What is `tango`'s approach to LP?
+
+### Audience sees:
+
+```rust
+pub fn main() { println!("Hello post `tango`"); }
+```
 
 * What is Literate Programming (LP)?
 
 * What is `tango`'s approach to LP?
 
-# Literate Programming (LP)
+
+# Literate Programming (LP)  { .center }
 
 ## Knuth on Literate Programming
 
@@ -110,9 +107,9 @@ the doc source or the program source
 better. But both outputs are intermediate representations, not
 products fit for human consumption.)
 
-# Tango's approach to LP
+# Tango's approach to LP { .center }
 
-## Source is a matter of perspective
+## "Source": matter of perspective  { data-transition="fade" }
 
 ```dot
 digraph tango_lp {
@@ -132,21 +129,70 @@ digraph tango_lp {
 }
 ```
 
-You edit whichever document you like, and running `tango` regenerates
-the other from it.
+Edit either; `tango` regenerates the other
 
- . . .
+. . .
 
-You *should* run `cargo build` before switching twixt `.rs` & `.md`.
+*Should* run `cargo build` before switching twixt `.rs` & `.md`.
 
-But, editing both `foo.rs` and `foo.md` will *not* destroy your
-work. `tango` will refuse to overwrite either file; you will need to
-pick one and propagate other changes over.
+But: editing both without `cargo build` will *not* destroy work.
 
-# The Trick(s) to `tango`'ing
+# The Trick(s) to `tango`'ing  { .center }
 
 ## `tango` trick: bijective submapping
 
-## `tango` trick: double tango is idempotent
+```dot
+digraph bijective_submapping {
+    bgcolor="transparent";
+    node [style="filled",fillcolor="#FFFFFF"];
 
-## `tango` trick: timestamp games
+    a_noncanon_rs
+    a_noncanon_md
+    subgraph cluster_0 {
+        a_canon_rs
+        a_canon_md
+        color=blue;
+    }
+    a_noncanon_rs -> a_canon_rs [style="invis"];
+    a_noncanon_md -> a_canon_md [style="invis"];
+    edge [fontname="Monospace",fontsize="10"]
+    a_noncanon_rs -> a_canon_md;
+    a_noncanon_md -> a_canon_rs;
+    a_canon_rs -> a_canon_md;
+    a_canon_md -> a_canon_rs;
+}
+```
+
+(double `tango` is idempotent)
+
+
+## `tango` trick: timestamp games { data-transition="fade-out" }
+
+`tango` runs in response to `cargo build`
+
+And `tango` updates/creates source files
+
+Goal: no unnecessary `cargo` rebuilds
+
+## `tango` trick: timestamp games { data-transition="fade-in" }
+
+The trick
+
+```dot
+digraph timestamp_games {
+    bgcolor="transparent";
+    node [style="filled",fillcolor="#FFFFFF"];
+
+    a_rs;
+    a_md;
+    init_file [shape="point"];
+    init_file -> a_rs [dir="back",label="initial conversion result",style="dashed"];
+    init_file -> a_md [dir="forward",label="restamp with modification time for a_rs",style="dashed"];
+    edge [fontname="Monospace",fontsize="10"];
+    a_rs -> a_md [dir="forward",label="  tango"];
+}
+```
+
+## `tango` implementation
+
+line-oriented state machine
