@@ -15,6 +15,7 @@ fn run_pandoc() {
     let mut pandoc = pandoc::new();
     pandoc.add_input("src/slides.md");
     pandoc.set_output("slides.html");
+    pandoc.add_option(pandoc::PandocOption::Css("stripes.css".to_string()));
     pandoc.set_output_format(pandoc::OutputFormat::Revealjs);
     pandoc.add_option(pandoc::PandocOption::Standalone);
     pandoc.add_option(pandoc::PandocOption::SlideLevel(2));
@@ -23,7 +24,7 @@ fn run_pandoc() {
     pandoc.add_filter(run_dot_filter);
     pandoc.execute().unwrap();
 }
-use rustc_serialize::json::{self, Json, Object, Array};
+use rustc_serialize::json::{Json, Object, Array};
 
 fn run_dot_filter(input: String) -> String {
     println!("Input:    `{}`", input);
@@ -44,7 +45,7 @@ fn replace_dot_blocks(json: &mut Json) -> Result<(), Error> {
     let new_content = match *json {
         Json::Array(ref mut jsons) => {
             for json in jsons {
-                replace_dot_blocks(json);
+                try!(replace_dot_blocks(json));
             }
             None
         }
@@ -79,7 +80,7 @@ fn replace_dot_blocks(json: &mut Json) -> Result<(), Error> {
                         write!(stdin, "{}", content)
                             .unwrap_or_else(|e| panic!("write of content to stdin failed: {:?}", e));
                     }
-                    let ecode = child.wait()
+                    let _ecode = child.wait()
                         .unwrap_or_else(|e| panic!("wait for child failed: {:?}", e));
                     let mut output = String::new();
                     let mut stdout = child.stdout

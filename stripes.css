@@ -1,0 +1,9 @@
+.stripes {
+    background: repeating-linear-gradient(
+                        45deg,
+                        #f0edfc,
+                        #f0edfc 10px,
+                        #e6e288 10px,
+                        #e6e288 20px
+                    );
+}

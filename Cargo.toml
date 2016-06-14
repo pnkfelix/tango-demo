@@ -16,12 +16,10 @@ build = "tango-build.rs"
 [build-dependencies]
 pandoc = "0.4.1"
 rustc-serialize = "0.3.19"
-
 # The preprocessor is the `tango` crate, so we need to add that
 # to the build-dependencies.
+tango = "0.5.0"
 
-[build-dependencies.tango]
-git = "https://github.com/pnkfelix/tango"
 
 # Since the lib may be a tango file stored in `src/lib.md`, we need to
 # explicitly specify that this is a library project with a `[lib]`
