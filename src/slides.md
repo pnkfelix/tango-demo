@@ -340,4 +340,46 @@ pub fn blinking_code() {
 
 . . .
 
-Above: our moment of zen. **Thanks!!!**
+Note that above link *works*
+
+## Thanks
+
+```dot
+digraph tango_lp {
+    edge[color="#FFAAAA",fontcolor="#FFAAAA"];
+    rankdir="LR";
+    bgcolor="transparent";
+    node [style="filled",fillcolor="#FFFFFF"];
+
+    subgraph master {
+        rankdir="TB";
+        a_md [label="src/a.md (master)"]
+        b_rs [label="src/b.rs (master)",shape="rect"]
+    }
+
+    a_rs [label="src/a.rs",shape="rect"]
+    b_md [label="src/b.md"]
+
+    a_md -> b_rs [style="invis",weight=100];
+    a_rs -> b_md [style="invis",weight=100];
+    edge [fontname="Monospace",fontsize="10"];
+    a_md -> a_rs -> a_md [label="tango"];
+    b_rs -> b_md -> b_rs [label="tango"];
+}
+```
+
+```dot
+digraph rs2md_min {
+    edge[color="#FFAAAA",fontcolor="#FFAAAA"];
+  rankdir="LR";
+  bgcolor="transparent";
+  node [style="filled",fillcolor="#FFFFFF"];
+
+  rs [shape="rect",label="//@ prefix\l\lfn foo() {\l}\l\l//@ middle\l//@ text\l\lfn bar() {}\l"];
+  md [label="prefix\l\l```rust\lfn foo() {\l}\l```\l\lmiddle\ltext\l\l```rust\lfn bar() {}\l```\l"];
+  rs -> md [label="rs2md"]
+  md -> rs [label="md2rs"]
+}
+```
+
+(meta: written with `tango`; see [`http://bit.ly/2618VSS`])
