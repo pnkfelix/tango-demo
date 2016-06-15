@@ -1,9 +1,14 @@
+html { background-color: inherit; }
+
 .stripes {
     background: repeating-linear-gradient(
                         45deg,
-                        #f0edfc,
-                        #f0edfc 10px,
-                        #e6e288 10px,
-                        #e6e288 20px
+                        #001d0c,
+                        #001d0c 10px,
+                        #461208 10px,
+                        #461208 20px
                     );
 }
+
+.reveal pre code { background-color: inherit; }
+
