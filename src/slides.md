@@ -230,7 +230,7 @@ digraph rs2md_min {
 
 ##
 
-### bijective submapping
+### contains bijective submapping
 
 ```dot
 digraph bijective_submapping {
