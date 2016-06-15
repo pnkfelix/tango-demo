@@ -1,10 +1,64 @@
-# `tango`: dancing around literate programming {.center}
+---
+author-meta:
+  - Felix Klock (`@pnkfelix`), Mozilla
+date-meta: 16 June 2016
+pagetitle: `tango`: dancing around literate programming
+---
 
-## Goal of `tango`: { .center }
+# `tango`: dancing around literate programming  { data-transition="fade" }
+
+## `tango`: dancing around literate programming  { data-transition="fade" }
+
+```dot
+digraph tango_lp {
+    edge[color="#FFAAAA",fontcolor="#FFAAAA"];
+    rankdir="LR";
+    bgcolor="transparent";
+    node [style="filled",fillcolor="#FFFFFF"];
+
+    subgraph master {
+        rankdir="TB";
+        a_md [label="src/a.md (master)"]
+        b_rs [label="src/b.rs (master)",shape="rect"]
+    }
+
+    a_rs [label="src/a.rs",shape="rect"]
+    b_md [label="src/b.md"]
+
+    a_md -> b_rs [style="invis",weight=100];
+    a_rs -> b_md [style="invis",weight=100];
+    edge [fontname="Monospace",fontsize="10"];
+    a_md -> a_rs -> a_md [label="tango"];
+    b_rs -> b_md -> b_rs [label="tango"];
+}
+```
+
+(talk written w/ `tango`; see [`http://bit.ly/2618VSS`])
+
+## Goal of `tango`: { .center data-transition="fade-out"}
 
 ### Simple literate programming for Rust
 
-## { data-transition="fade" }
+* I have been using for tutorial presentations
+
+* [http://bit.ly/1LQM3PS](http://bit.ly/1LQM3PS)
+
+* [http://is.gd/3oAeuH](http://is.gd/3oAeuH)
+
+(talk written w/ `tango`; see [`http://bit.ly/2618VSS`])
+
+## Quick Apologies {.center data-transition="fade-in"}
+
+>- (Lightning) talk about tool for presenting Rust ...
+>- ... but talk presents zero real Rust snippets. Sorry.
+>- Implementation = Ugly hacks (some described later) ...
+>- ... maybe one day I will revise to use better idioms. Sorry.
+>- Cool presentation tricks here due to `pandoc`, *not* `tango`.
+>- Using `pandoc` crate; "just" shells out to `pandoc`. Sorry.
+
+(talk written w/ `tango`; see [`http://bit.ly/2618VSS`])
+
+## { data-transition="fade-out" }
 
 ### Presenter writes:
 
@@ -41,7 +95,7 @@ Hello post `tango`
     * What is `tango`'s approach to LP?
 
 
-### IDE (i.e. Rust source) sees:
+### IDE sees (Rust source):
 
 ``` {.rust}
 pub fn main() { println!("Hello post `tango`"); }
@@ -75,29 +129,28 @@ pub fn main() { println!("Hello post `tango`"); }
 
 . . .
 
-(above is the actual outline for the talk.)
+(talk written w/ `tango`; see [`http://bit.ly/2618VSS`])
+
+[`http://bit.ly/2618VSS`]: https://github.com/pnkfelix/tango-demo/blob/tango-presentation/src/slides.md
 
 # Literate Programming (LP)  { .center }
 
 ## Knuth on Literate Programming
 
-> Instead of imagining that our
-> main task is to instruct a
-> **computer**
-> what to do, let us
-> concentrate rather on explaining to
-> **human beings**
-> what
-> we want a computer to do.
+> Instead of imagining that our main task is to instruct a **computer** what to do,
+> let us concentrate rather on explaining to **human beings** what we want a computer to do.
 >
 > -- Donald Knuth, 1983
 
-[`http://www.literateprogramming.com/knuthweb.pdf`](http://www.literateprogramming.com/knuthweb.pdf)
+[http://www.literateprogramming.com/knuthweb.pdf](http://www.literateprogramming.com/knuthweb.pdf)
+
+(Examples include TeX, Metafont, SGB.)
 
 ## Usual LP approach
 
 ```dot
 digraph web_lp {
+    edge[color="#FFAAAA",fontcolor="#FFAAAA"];
     bgcolor="transparent";
     node [style="filled",fillcolor="#FFFFFF"];
 
@@ -112,20 +165,23 @@ digraph web_lp {
 }
 ```
 
-> Programmer edits `.web`; programs generate intermediate source
+Programmer edits `.web`; utils create intermediate source
 
 . . .
 
-(Output `tangle` is "write-only"; IMO `weave` is not much better.)
+(WEB `tangle` output "write-only"; IMO `weave` is too)
 
-[`http://www.literateprogramming.com/knuthweb.pdf`](http://www.literateprogramming.com/knuthweb.pdf)
+Architecture motivated (in part) by language limitations
 
 # Tango's approach to LP { .center }
+
+## Tango is not `WEB`! {.center}
 
 ## "Source": matter of perspective  { data-transition="fade" }
 
 ```dot
 digraph tango_lp {
+    edge[color="#FFAAAA",fontcolor="#FFAAAA"];
     rankdir="LR";
     bgcolor="transparent";
     node [style="filled",fillcolor="#FFFFFF"];
@@ -151,13 +207,35 @@ Edit either; `tango` regenerates the other
 
 . . .
 
-*Should* run `cargo build` before switching twixt `.rs` & `.md`.
+One *should* `cargo build` before switch between `.rs`/`.md`
 
-But: editing both without `cargo build` will *not* destroy work.
+But: editing both first will *not* destroy work!
 
 # Trick(s) to `tango`'ing  { .center }
 
-## trick: timestamp games { data-transition="fade-out" }
+## implementation
+
+* line-oriented state machines (+ `timestamp` module)
+
+* `rs2md`: rust content encoded as &#96;&#96;&#96;`rust` code blocks
+
+* `md2rs`: markdown encoded as `//@` prefixed comments
+
+```dot
+digraph rs2md_min {
+    edge[color="#FFAAAA",fontcolor="#FFAAAA"];
+  rankdir="LR";
+  bgcolor="transparent";
+  node [style="filled",fillcolor="#FFFFFF"];
+
+  rs [shape="rect",label="//@ prefix\l\lfn foo() {\l}\l\l//@ middle\l//@ text\l\lfn bar() {}\l"];
+  md [label="prefix\l\l```rust\lfn foo() {\l}\l```\l\lmiddle\ltext\l\l```rust\lfn bar() {}\l```\l"];
+  rs -> md [label="rs2md"]
+  md -> rs [label="md2rs"]
+}
+```
+
+## timestamp games { data-transition="fade-out" }
 
 `tango` runs in response to `cargo build`
 
@@ -165,19 +243,20 @@ And `tango` updates/creates source files
 
 . . .
 
-> Problem: If above done naively, the newly created source will cause
-> subsequent `cargo build` to reprocess and rebuild every time.
+* Problem: If done naively, such runs would cause
+  subsequent `cargo build` to reprocess and rebuild (every time).
 
 . . .
 
 Goal: no unnecessary `cargo` rebuilds
 
-## trick: timestamp games { data-transition="fade-in" }
+## timestamp games { data-transition="fade-in" }
 
 The trick
 
 ```dot
 digraph timestamp_games {
+    edge[color="#FFAAAA",fontcolor="#FFAAAA"];
     bgcolor="transparent";
     node [style="filled",fillcolor="#FFFFFF"];
 
@@ -193,31 +272,13 @@ digraph timestamp_games {
 }
 ```
 
-## `tango` implementation
+##
 
-* pair of line-oriented state machines (and `timestamp` utility module)
-
-* `rs2md`: markdown content encoded as `//@` prefixed comments
-
-* `md2rs`: rust content encoded as &#96;&#96;&#96;`rust` code blocks
-
-```dot
-digraph rs2md_min {
-  rankdir="LR";
-  bgcolor="transparent";
-  node [style="filled",fillcolor="#FFFFFF"];
-
-  rs [shape="rect",label="//@ prefix\l\lfn foo() {\l}\l\l//@ middle\l//@ text\l\lfn bar() {}\l"];
-  md [label="prefix\l\l```rust\lfn foo() {\l}\l```\l\lmiddle\ltext\l\l```rust\lfn bar() {}\l```\l"];
-  rs -> md [label="rs2md"]
-  md -> rs [label="md2rs"]
-}
-```
-
-## trick: bijective submapping
+### bijective submapping
 
 ```dot
 digraph bijective_submapping {
+    edge[color="#FFAAAA",fontcolor="#FFAAAA"];
     rankdir="LR";
     bgcolor="transparent";
     node [style="filled",fillcolor="#FFFFFF"];
@@ -226,7 +287,7 @@ digraph bijective_submapping {
     subgraph cluster_0 {
         a_canon_rs [shape="rect",label="//@ prefix\l\lfn foo() { }\l\lfn bar() { }\l\l//@ suffix\l"]
         a_canon_md [label="prefix\l\l```rust\lfn foo() { }\l\lfn bar() { }\l```\l\lsuffix\l"]
-        color=blue;
+        color=pink;
     }
     a_noncanon_rs -> a_canon_rs [style="invis"];
     a_noncanon_md [label="prefix\l\l```rust\lfn foo() { }\l```\l\l```rust\lfn bar() { }\l```\l\lsuffix\l"]
@@ -243,24 +304,26 @@ digraph bijective_submapping {
 
 . . .
 
-e.g. certain "no-op transitions" moved or eliminated at whim of `tango`.
+e.g. some "no-op transitions" \[re\]moved at whim of `tango`.
 
 ## Other hacks {.center}
 
-* encoding attributes attached to code blocks
+Encoding attributes attached to code blocks (`//@@ `)
 
-* playpen link integration
+e.g. `//@@ { .attribute1 .attribute2 }`
+
+Playpen link integration (`//@@@ `)
+
+e.g. `//@@@ playpen link name`
 
 # Adds up to... {.center}
 
 ## {.center}
 
-### This .rs source:
-
 ``` {.rust}
-//@ You can has [stripey playpen][stripey] links!
+//@ You can follow [stripey] to the *playpen*!
 
-//@@ { .stripes}
+//@@ { .stripes }
 #[test]
 pub fn blinking_code() {
     println!("This code does not actually blink");
@@ -270,7 +333,7 @@ pub fn blinking_code() {
 
 ### will `tango` into:
 
-You can has [stripey playpen][stripey] links!
+You can follow [stripey] to the *playpen*!
 
 ```{.rust .stripes}
 #[test]
@@ -284,4 +347,4 @@ pub fn blinking_code() {
 
 . . .
 
-**Thanks!!!**
+Above: our moment of zen. **Thanks!!!**
