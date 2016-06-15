@@ -1,11 +1,6 @@
----
-author-meta:
-  - Felix Klock (`@pnkfelix`), Mozilla
-date-meta: 16 June 2016
-pagetitle: `tango`: dancing around literate programming
----
-
-# `tango`: dancing around literate programming  { data-transition="fade" }
+% `tango`: dancing around literate programming
+% Felix Klock (`@pnkfelix`), Mozilla
+% date: 16 June 2016
 
 ## `tango`: dancing around literate programming  { data-transition="fade" }
 
@@ -33,11 +28,13 @@ digraph tango_lp {
 }
 ```
 
-(talk written w/ `tango`; see [`http://bit.ly/2618VSS`])
+# What is `tango`? {.center data-transition="fade"}
 
-## Goal of `tango`: { .center data-transition="fade-out"}
+## Goal of `tango`: { data-transition="fade"}
 
 ### Simple literate programming for Rust
+
+. . .
 
 * I have been using for tutorial presentations
 
@@ -45,18 +42,22 @@ digraph tango_lp {
 
 * [http://is.gd/3oAeuH](http://is.gd/3oAeuH)
 
-(talk written w/ `tango`; see [`http://bit.ly/2618VSS`])
+(meta: written with `tango`; see [`http://bit.ly/2618VSS`])
 
-## Quick Apologies {.center data-transition="fade-in"}
+## Quick Apologies { data-transition="fade-in"}
 
 >- (Lightning) talk about tool for presenting Rust ...
 >- ... but talk presents zero real Rust snippets. Sorry.
 >- Implementation = Ugly hacks (some described later) ...
 >- ... maybe one day I will revise to use better idioms. Sorry.
->- Cool presentation tricks here due to `pandoc`, *not* `tango`.
+>- Cool visuals due to `reveal.js` + `pandoc` (*not* `tango`)
 >- Using `pandoc` crate; "just" shells out to `pandoc`. Sorry.
 
-(talk written w/ `tango`; see [`http://bit.ly/2618VSS`])
+(meta: written with `tango`; see [`http://bit.ly/2618VSS`])
+
+[`http://bit.ly/2618VSS`]: https://github.com/pnkfelix/tango-demo/blob/tango-presentation/src/slides.md
+
+# Concrete Demo {.center}
 
 ## { data-transition="fade-out" }
 
@@ -127,15 +128,9 @@ pub fn main() { println!("Hello post `tango`"); }
 
 * What is `tango`'s approach to LP?
 
-. . .
-
-(talk written w/ `tango`; see [`http://bit.ly/2618VSS`])
-
-[`http://bit.ly/2618VSS`]: https://github.com/pnkfelix/tango-demo/blob/tango-presentation/src/slides.md
-
 # Literate Programming (LP)  { .center }
 
-## Knuth on Literate Programming
+## Knuth's Literate Programming: WEB
 
 > Instead of imagining that our main task is to instruct a **computer** what to do,
 > let us concentrate rather on explaining to **human beings** what we want a computer to do.
@@ -173,9 +168,7 @@ Programmer edits `.web`; utils create intermediate source
 
 Architecture motivated (in part) by language limitations
 
-# Tango's approach to LP { .center }
-
-## Tango is not `WEB`! {.center}
+# Tango's approach (`tango` is not `WEB`!) { .center }
 
 ## "Source": matter of perspective  { data-transition="fade" }
 
