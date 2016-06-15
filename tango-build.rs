@@ -19,7 +19,8 @@ fn run_pandoc() {
     pandoc.set_output_format(pandoc::OutputFormat::Revealjs);
     pandoc.add_option(pandoc::PandocOption::Standalone);
     pandoc.add_option(pandoc::PandocOption::SlideLevel(2));
-    pandoc.set_variable("theme", "mozilla-sandstone");
+    // pandoc.set_variable("theme", "mozilla-sandstone");
+    // pandoc.set_variable("theme", "White");
     pandoc.set_variable("center", "false");
     pandoc.add_filter(run_dot_filter);
     pandoc.execute().unwrap();
