@@ -168,7 +168,7 @@ Programmer edits `.web`; utils create intermediate source
 
 Architecture motivated (in part) by language limitations
 
-# Tango's approach (`tango` is not `WEB`!) { .center }
+# `tango` is neither `tangle` nor `weave`! { .center }
 
 ## "Source": matter of perspective  { data-transition="fade" }
 
@@ -206,13 +206,13 @@ But: editing both first will *not* destroy work!
 
 # Trick(s) to `tango`'ing  { .center }
 
-## implementation
+## Implementation
 
 * line-oriented state machines (+ `timestamp` module)
 
-* `rs2md`: rust content encoded as &#96;&#96;&#96;`rust` code blocks
+* `rs2md` (219 loc): rust code ↦ &#96;&#96;&#96;`rust` blocks
 
-* `md2rs`: markdown encoded as `//@` prefixed comments
+* `md2rs` (195 loc): markdown ↦ `//@` prefixed comments
 
 ```dot
 digraph rs2md_min {
@@ -221,12 +221,50 @@ digraph rs2md_min {
   bgcolor="transparent";
   node [style="filled",fillcolor="#FFFFFF"];
 
-  rs [shape="rect",label="//@ prefix\l\lfn foo() {\l}\l\l//@ middle\l//@ text\l\lfn bar() {}\l"];
   md [label="prefix\l\l```rust\lfn foo() {\l}\l```\l\lmiddle\ltext\l\l```rust\lfn bar() {}\l```\l"];
-  rs -> md [label="rs2md"]
+  rs [shape="rect",label="//@ prefix\l\lfn foo() {\l}\l\l//@ middle\l//@ text\l\lfn bar() {}\l"];
   md -> rs [label="md2rs"]
+  rs -> md [label="rs2md"]
 }
 ```
+
+##
+
+### bijective submapping
+
+```dot
+digraph bijective_submapping {
+    edge[color="#FFAAAA",fontcolor="#FFAAAA"];
+    rankdir="LR";
+    bgcolor="transparent";
+    node [style="filled",fillcolor="#FFFFFF",fontsize="10"];
+
+    a_noncanon_rs [shape="rect",label="//@ prefix\l//@\lfn foo() { }\l\lfn bar() { }\l\l//@ suffix\l"]
+    subgraph cluster_0 {
+        a_canon_rs [shape="rect",label="//@ prefix\l\lfn foo() { }\l\lfn bar() { }\l\l//@ suffix\l"]
+        a_canon_md [label="prefix\l\l```rust\lfn foo() { }\l\lfn bar() { }\l```\l\lsuffix\l"]
+        color=pink;
+    }
+    a_noncanon_rs -> a_canon_rs [style="invis"];
+    a_noncanon_md [label="prefix\l\l```rust\lfn foo() { }\l```\l\l```rust\lfn bar() { }\l```\l\lsuffix\l"]
+    a_canon_md -> a_noncanon_md [dir="back",style="invis"];
+    edge [fontname="Monospace",fontsize="10"]
+    a_noncanon_rs -> a_canon_md;
+    a_noncanon_md -> a_canon_rs;
+    a_canon_rs -> a_canon_md;
+    a_canon_md -> a_canon_rs;
+}
+```
+
+Range of `tango` = domain of submap
+
+Edits remain in domain of `tango` (usually)
+
+. . .
+
+Outside submap: content "adjusted" by `tango` ...
+
+... but (`tango` ○ `tango`) idempotent
 
 ## timestamp games { data-transition="fade-out" }
 
@@ -255,8 +293,8 @@ digraph timestamp_games {
 
     init [style=invis]
     init -> a_rs [label="edit"];
-    a_rs [label="fn foo() {}\l",shape="rect"];
-    a_md [label="```rust\lfn foo() {}\l```\l"];
+    a_rs [label="//@ commentary on `foo`\l\lfn foo() {}\l",shape="rect"];
+    a_md [label="commentary on `foo`\l\l```rust\lfn foo() {}\l```\l"];
     init_file [shape="point"];
     init_file -> a_rs [dir="back",label="initial conversion result",style="dashed"];
     init_file -> a_md [dir="forward",label=" restamp with modification time for .rs file",style="dashed"];
@@ -264,40 +302,6 @@ digraph timestamp_games {
     a_rs -> a_md [dir="forward",label="  tango"];
 }
 ```
-
-##
-
-### bijective submapping
-
-```dot
-digraph bijective_submapping {
-    edge[color="#FFAAAA",fontcolor="#FFAAAA"];
-    rankdir="LR";
-    bgcolor="transparent";
-    node [style="filled",fillcolor="#FFFFFF"];
-
-    a_noncanon_rs [shape="rect",label="//@ prefix\l//@\lfn foo() { }\l\lfn bar() { }\l\l//@ suffix\l"]
-    subgraph cluster_0 {
-        a_canon_rs [shape="rect",label="//@ prefix\l\lfn foo() { }\l\lfn bar() { }\l\l//@ suffix\l"]
-        a_canon_md [label="prefix\l\l```rust\lfn foo() { }\l\lfn bar() { }\l```\l\lsuffix\l"]
-        color=pink;
-    }
-    a_noncanon_rs -> a_canon_rs [style="invis"];
-    a_noncanon_md [label="prefix\l\l```rust\lfn foo() { }\l```\l\l```rust\lfn bar() { }\l```\l\lsuffix\l"]
-    a_canon_md -> a_noncanon_md [dir="back",style="invis"];
-    edge [fontname="Monospace",fontsize="10"]
-    a_noncanon_rs -> a_canon_md;
-    a_noncanon_md -> a_canon_rs;
-    a_canon_rs -> a_canon_md;
-    a_canon_md -> a_canon_rs;
-}
-```
-
-(double `tango` is idempotent)
-
-. . .
-
-e.g. some "no-op transitions" \[re\]moved at whim of `tango`.
 
 ## Other hacks {.center}
 
@@ -377,8 +381,8 @@ digraph rs2md_min {
 
   rs [shape="rect",label="//@ prefix\l\lfn foo() {\l}\l\l//@ middle\l//@ text\l\lfn bar() {}\l"];
   md [label="prefix\l\l```rust\lfn foo() {\l}\l```\l\lmiddle\ltext\l\l```rust\lfn bar() {}\l```\l"];
-  rs -> md [label="rs2md"]
-  md -> rs [label="md2rs"]
+  rs -> md
+  md -> rs
 }
 ```
 
