@@ -208,11 +208,11 @@ But: editing both first will *not* destroy work!
 
 ## Implementation
 
-* line-oriented state machines (+ `timestamp` module)
+* two line-oriented state machines \[+ `timestamp` (72 loc)\]
 
-* `rs2md` (219 loc): rust code ↦ &#96;&#96;&#96;`rust` blocks
+* `rs2md` (219 loc): rust code ↦ &#96;&#96;&#96;`rust`-blocks
 
-* `md2rs` (195 loc): markdown ↦ `//@` prefixed comments
+* `md2rs` (195 loc): markdown ↦ `//@`-prefixed comments
 
 ```dot
 digraph rs2md_min {
@@ -302,6 +302,10 @@ digraph timestamp_games {
     a_rs -> a_md [dir="forward",label="  tango"];
 }
 ```
+
+. . .
+
+(also: timestamp separate file to detect if both modified)
 
 ## Other hacks {.center}
 
