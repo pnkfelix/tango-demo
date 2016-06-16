@@ -36,13 +36,15 @@ digraph tango_lp {
 
 . . .
 
-* I have been using for tutorial presentations
+* I have been using for tutorial presentations:
 
 * [http://bit.ly/1LQM3PS](http://bit.ly/1LQM3PS)
 
 * [http://is.gd/3oAeuH](http://is.gd/3oAeuH)
 
 (meta: written with `tango`; see [`http://bit.ly/2618VSS`])
+
+  `http://pnkfelix.github.io/presentations/`
 
 ## Quick Apologies { data-transition="fade-in"}
 
@@ -54,6 +56,8 @@ digraph tango_lp {
 >- Using `pandoc` crate; "just" shells out to `pandoc`. (Sorry.)
 
 (meta: written with `tango`; see [`http://bit.ly/2618VSS`])
+
+`http://pnkfelix.github.io/presentations/`
 
 [`http://bit.ly/2618VSS`]: https://github.com/pnkfelix/tango-demo/blob/tango-presentation/src/slides.md
 
