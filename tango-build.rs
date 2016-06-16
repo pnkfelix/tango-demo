@@ -66,40 +66,7 @@ fn replace_dot_blocks(json: &mut Json) -> Result<(), Error> {
                 let content: &Json = &mut block[1];
                 let content = content.as_string().unwrap();
                 println!("saw attr: {:?} content: {}", attr, content);
-                let new_text: String = {
-                    use std::process::{Command, Stdio};
-                    use std::io::{Read, Write};
-                    let mut child = Command::new("dot")
-                        .arg("-Tsvg")
-                        .stdin(Stdio::piped())
-                        .stdout(Stdio::piped())
-                        .spawn()
-                        .unwrap_or_else(|e| panic!("spawn of dot failed: {:?}", e));
-                    {
-                        let mut stdin = child.stdin.as_mut()
-                            .unwrap_or_else(|| panic!("unwrap of child stdin failed"));
-                        write!(stdin, "{}", content)
-                            .unwrap_or_else(|e| panic!("write of content to stdin failed: {:?}", e));
-                    }
-                    let _ecode = child.wait()
-                        .unwrap_or_else(|e| panic!("wait for child failed: {:?}", e));
-                    let mut output = String::new();
-                    let mut stdout = child.stdout
-                        .as_mut()
-                        .unwrap_or_else(|| panic!("unwrap of child stdout failed"));
-                    stdout.read_to_string(&mut output).unwrap();
-                    let mut chars = output.chars();
-
-                    // Skip the `<?xml ...>` directive.
-                    skip_line(&mut chars);
-                    // Skip the (two-line) <!DOCTYPE ...> dtd directive.
-                    skip_line(&mut chars);
-                    skip_line(&mut chars);
-
-                    let svg_output: String = chars.collect();
-                    println!("child svg_output: {}", svg_output);
-                    svg_output
-                };
+                let new_text: String = exec_dot(content);
                 Some(new_text)
             } else {
                 None
@@ -118,8 +85,43 @@ fn replace_dot_blocks(json: &mut Json) -> Result<(), Error> {
         });
         *json = Json::Object(para);
     }
-    
+
     Ok(())
+}
+
+fn exec_dot(dot_content: &str) -> String {
+    use std::process::{Command, Stdio};
+    use std::io::{Read, Write};
+    let mut child = Command::new("dot")
+        .arg("-Tsvg")
+        .stdin(Stdio::piped())
+        .stdout(Stdio::piped())
+        .spawn()
+        .unwrap_or_else(|e| panic!("spawn of dot failed: {:?}", e));
+    {
+        let mut stdin = child.stdin.as_mut()
+            .unwrap_or_else(|| panic!("unwrap of child stdin failed"));
+        write!(stdin, "{}", dot_content)
+            .unwrap_or_else(|e| panic!("write of dot_content to stdin failed: {:?}", e));
+    }
+    let _ecode = child.wait()
+        .unwrap_or_else(|e| panic!("wait for child failed: {:?}", e));
+    let mut output = String::new();
+    let mut stdout = child.stdout
+        .as_mut()
+        .unwrap_or_else(|| panic!("unwrap of child stdout failed"));
+    stdout.read_to_string(&mut output).unwrap();
+    let mut chars = output.chars();
+
+    // Skip the `<?xml ...>` directive.
+    skip_line(&mut chars);
+    // Skip the (two-line) <!DOCTYPE ...> dtd directive.
+    skip_line(&mut chars);
+    skip_line(&mut chars);
+
+    let svg_output: String = chars.collect();
+    println!("child svg_output: {}", svg_output);
+    svg_output
 }
 
 fn skip_line<I>(chars: &mut I) where I: Iterator<Item=char> {
