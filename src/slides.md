@@ -46,12 +46,12 @@ digraph tango_lp {
 
 ## Quick Apologies { data-transition="fade-in"}
 
->- (Lightning) talk about tool for presenting Rust ...
->- ... but talk presents zero real Rust snippets. Sorry.
+>- (Lightning) talk re: tool for authoring Rust presentations...
+>- ... but talk presents zero interesting Rust snippets. (Sorry.)
 >- Implementation = Ugly hacks (some described later) ...
->- ... maybe one day I will revise to use better idioms. Sorry.
->- Cool visuals due to `reveal.js` + `pandoc` (*not* `tango`)
->- Using `pandoc` crate; "just" shells out to `pandoc`. Sorry.
+>- ... maybe one day I will revise to use better idioms. (Sorry.)
+>- Cool visuals due to `reveal.js` + `pandoc`, *not* `tango`
+>- Using `pandoc` crate; "just" shells out to `pandoc`. (Sorry.)
 
 (meta: written with `tango`; see [`http://bit.ly/2618VSS`])
 
@@ -128,6 +128,28 @@ pub fn main() { println!("Hello post `tango`"); }
 
 * What is `tango`'s approach to LP?
 
+## Fragments
+
+This is Hello World
+
+```rust
+pub fn hello_world() {
+```
+
+`println!` is a macro. It prints things.
+
+```rust
+    println!("Hello World");
+```
+
+Close curly `}` ends the scope.
+
+```rust
+}
+```
+
+That's all folks!
+
 # Literate Programming (LP)  { .center }
 
 ## Knuth's Literate Programming: WEB
@@ -203,6 +225,25 @@ Edit either; `tango` regenerates the other
 One *should* `cargo build` before switch between `.rs`/`.md`
 
 But: editing both first will *not* destroy work!
+
+# Installation
+
+## Integrated with `cargo`
+
+Cargo.toml:
+```toml
+build = "tango-build.rs"
+
+[build-dependencies]
+tango = "0.5.0"
+```
+
+tango-build.rs:
+``` {.rust}
+extern crate tango;
+
+fn main() { tango::process_root().unwrap() }
+```
 
 # Trick(s) to `tango`'ing  { .center }
 
