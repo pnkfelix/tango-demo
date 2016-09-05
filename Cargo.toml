@@ -25,4 +25,4 @@ git = "https://github.com/pnkfelix/tango"
 # section, which then requires an explicit name.
 
 [lib]
-name = "lib"
+name = "tango_demo"
