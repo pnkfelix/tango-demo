@@ -26,7 +26,7 @@ tango = "0.5.0"
 # section, which then requires an explicit name.
 
 [lib]
-name = "lib"
+name = "tango_demo"
 
 [[bin]]
 name = "main"
