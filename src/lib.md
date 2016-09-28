@@ -87,9 +87,11 @@ Here is one Rust submodule:
 
 ```rust
 pub mod submod_one {
-	pub fn twice<F, X>(f: F, x: X) -> X where F: Fn(X) -> X {
-		f(f(x))
-	}
+    pub fn twice<F, X>(f: F, x: X) -> X
+        where F: Fn(X) -> X
+    {
+        f(f(x))
+    }
 }
 ```
 
