@@ -17,7 +17,7 @@ build = "tango-build.rs"
 # to the build-dependencies.
 
 [build-dependencies]
-tango = "0.7.*"
+tango = "0.8.*"
 
 # Since the lib may be a tango file stored in `src/lib.md`, we need to
 # explicitly specify that this is a library project with a `[lib]`
